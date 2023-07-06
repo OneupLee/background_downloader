@@ -93,7 +93,7 @@ public class Downloader: NSObject, FlutterPlugin, URLSessionDelegate, URLSession
     private func methodEnqueue(call: FlutterMethodCall, result: @escaping FlutterResult) {
         let args = call.arguments as! [Any]
         let taskJsonString = args[0] as! String
-        let notificationConfigJsonString = args[1] as? String?
+        let notificationConfigJsonString = args[1] as? String
         if notificationConfigJsonString != nil  && Downloader.haveNotificationPermission == nil {
             // check (or ask) if we have permission to send notifications
             let center = UNUserNotificationCenter.current()
@@ -106,7 +106,7 @@ public class Downloader: NSObject, FlutterPlugin, URLSessionDelegate, URLSession
         }
         let isResume = args.count == 4
         let resumeDataAsBase64String = isResume ? args[2] as! String : ""
-        doEnqueue(taskJsonString: taskJsonString, notificationConfigJsonString: notificationConfigJsonString ?? nil, resumeDataAsBase64String: resumeDataAsBase64String, result: result)
+        doEnqueue(taskJsonString: taskJsonString, notificationConfigJsonString: notificationConfigJsonString, resumeDataAsBase64String: resumeDataAsBase64String, result: result)
     }
     
     public func doEnqueue(taskJsonString: String, notificationConfigJsonString: String?, resumeDataAsBase64String: String, result: FlutterResult?) {
